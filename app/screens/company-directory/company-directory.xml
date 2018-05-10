@@ -1,0 +1,24 @@
+<Page 
+    xmlns="http://schemas.nativescript.org/tns.xsd" 
+    xmlns:nativescript-fresco="nativescript-fresco" navigatedTo="pageLoaded">
+    <ActionBar title="Company Directory">
+        <NavigationButton text="Back" icon="res://ic_arrow_back" tap="{{ goBack }}" />
+    </ActionBar>
+    <StackLayout>
+        <ListView class="listview" items="{{ nastcEmployees }}" itemLoading="{{ onItemLoading }}" separatorColor="#1B2936">
+            <ListView.itemTemplate>
+                <GridLayout class="item-layout" rows="auto, auto, auto" columns="100, *, 80">
+                    <android>
+                        <nativescript-fresco:FrescoDrawee class="profile-image" row="0" col="0" rowSpan="4" imageUri="{{ ProfilePic }}" actualImageScaleType="fitXY" roundedCornerRadius="30" roundAsCircle="true" fadeDuration="800" />
+                    </android>
+                    <ios>
+                        <Image row="0" col="0" rowSpan="4" class="profile-image" src="{{ ProfilePic }}" stretch="aspectFill" />
+                    </ios>
+                    <Label row="0" col="1" text="{{ Name }}" class="employee-name" textWrap="true" />
+                    <Label row="1" col="1" text="{{ JobTitle }}" class="employee-title" textWrap="true" />
+                    <Button row="0" col="2" rowSpan="3" text="&#xE0BE;" tap="{{ $parents['ListView'].emailTap }}" class="material-icon text-accent font-22 center btn-transparent" />
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
+    </StackLayout>
+</Page>

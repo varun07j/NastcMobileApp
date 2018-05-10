@@ -1,0 +1,165 @@
+<Page 
+    xmlns="http://schemas.nativescript.org/tns.xsd" 
+    xmlns:map="nativescript-mapbox" 
+    xmlns:FAB="nativescript-floatingactionbutton" loaded="loaded" unloaded="{{ onPageUnloaded }}">
+    <ActionBar title="{{ currentPageTitle }}">
+        <NavigationButton text="Back" icon="res://ic_arrow_back" tap="{{ goBack }}" />
+        <ActionBar.actionItems>
+            <ios>
+                <ActionItem id="maplistToggleActionItem" text="{{ viewMode ? 'View List' : 'View Map' }}" tap="{{ toggleViewMode }}" ios.position="right" visibility="{{ !routePlannerOpen && currentQpnMarkers.length >= 1 ? 'visible' : 'collapsed' }}" />
+            </ios>
+            <android>
+                <ActionItem id="maplistToggleActionItem" tap="{{ toggleViewMode }}" icon="{{ !viewMode ? 'res://ic_map_white' : 'res://ic_view_list_white' }}" position="right" visibility="{{ !routePlannerOpen && currentQpnMarkers.length >= 1 ? 'visible' : 'collapsed' }}"></ActionItem>
+            </android>
+        </ActionBar.actionItems>
+    </ActionBar>
+    <StackLayout>
+        <ContentView visibility="{{ viewMode ? 'visible' : 'collapsed' }}">
+            <GridLayout rows="auto, auto, *, *, 160, 62, 62" columns="auto, auto, *, auto, auto">
+                <map:MapboxView id="mapboxView" row="0" col="0" rowSpan="7" colSpan="5" android:delay="300" mapReady="{{ onMapReady }}" mapStyle="{{ mapStyle }}" latitude="39.8282" longitude="-98.5795" zoomLevel="2.9" showUserLocation="true" hideLogo="true" hideAttribution="true" disableRotation="false" accessToken="pk.eyJ1IjoibmFzdGVrZGV2ZWxvcGVyIiwiYSI6ImNpdTl1c2N0bzAwMDIyb2wzNTVmbnlvaDUifQ.aY8cgKVCUsGoWNXRGM1N_Q"></map:MapboxView>
+                <FAB:fab id="getLocationFab" tap="{{ getCurrentLocation }}" row="5" col="4" icon="res://ic_my_location_black" rippleColor="#c3c3c3" class="fab-white" />
+                <FAB:fab id="directionsFab" tap="{{ directionsFabTap }}" row="6" col="4" icon="res://ic_directions_white" rippleColor="#f1f1f1" class="fab-button" />
+                <!-- <ios><Button text="&#xE8EF;" row="0" col="4" class="small-blue-btn material-icon" tap="{{ toggleViewMode }}" visibility="{{ viewMode ? 'visible' : 'collapsed' }}" /></ios> -->
+                <Button id="mapStyleButton" text="&#xf37b;" class="small-white-btn ionicon" ios:margin="15" tap="{{ openMapStyleDialog }}" row="6" col="0" />
+                <StackLayout row="0" rowSpan="7" col="0" colSpan="5" id="hiddenRouteForm" backgroundColor="#1B2936" translateY="1200" opacity="0">
+                    <Button android:text="&#xf2d7;" ios:text="&#xf405;" class="ionicon btn-transparent font-22 pull-right" ios:fontSize="28" tap="{{ closeRouteForm }}" />
+                    <ScrollView>
+                        <StackLayout>
+                            <Label class="p-10 font-12" text="The best way to enter locations is city and state abbreviation. For example - Nashville TN - do not spell out the state name. You can even enter the city only, but the state order will be alphabetical so instead of Nashville TN, you'll get results for Nashville AR. If you have any trouble please let us know so we can improve this process for everyone." textWrap="true" />
+                            <Label text="" class="hr-light m-5 p-4" textWrap="true" />
+                            <GridLayout class="form" rows="auto, auto, auto, *, auto" columns="auto, auto, *, auto">
+                                <StackLayout row="0" class="m-10 p-10 input-field">
+                                    <Label text="Routing Engine" class="label m-b-5" textWrap="true" />
+                                    <GridLayout rows="*" columns="auto, *, auto" class="p-4 m-4">
+                                        <Label col="0" text="ProMiles" class="h3 m-r-5" tap="{{ onPromilesLinkTap }}" textWrap="true" />
+                                        <Switch col="1" id="routingEngineCheck" backgroundColor="#fff" color="#ff4081" checked="{{ routingEngine }}" />
+                                        <Label col="2" text="Mapbox" class="h3 m-l-5" tap="{{ onMapboxLinkTap }}" textWrap="true" />
+                                    </GridLayout>
+                                </StackLayout>
+                                <GridLayout rows="auto, auto" columns="*, 50" id="originContainer" class="input-field" row="1" col="0" colSpan="4">
+                                    <TextField row="0" col="0" id="originTextField" ios:class="ios-TextField" text="{{ origin }}" hint="Starting point..." editable="true" returnKeyType="next" />
+                                    <Button row="0" col="1" text="&#xf12a;" class="ionicon btn-transparent font-22 pull-right" tap="{{ clearOriginTextField }}" />
+                                    <Label row="1" col="0" colSpan="2" text="{{ originErrorMsg }}" class="text-warning" textWrap="true" />
+                                </GridLayout>
+                                <GridLayout rows="auto, auto" columns="*, 50" id="destinationContainer" class="input-field" row="2" col="0" colSpan="4">
+                                    <TextField row="0" col="0" id="destinationTextField" ios:class="ios-TextField" text="{{ destination }}" hint="Destination..." editable="true" returnKeyType="done" />
+                                    <Button row="0" col="1" text="&#xf12a;" class="ionicon btn-transparent font-22 pull-right" tap="{{ clearDestinationTextField }}" />
+                                    <Label row="1" col="0" colSpan="2" text="{{ destinationErrorMsg }}" class="text-warning" textWrap="true" />
+                                </GridLayout>
+                                <Button row="4" col="0" colSpan="4" text="View Route" tap="{{ submitRouteForm }}" class="btn-light-blue pull-right" />
+                            </GridLayout>
+                        </StackLayout>
+                    </ScrollView>
+                </StackLayout>
+                <StackLayout row="4" rowSpan="3" col="0" colSpan="5" id="stopDetailLayout" class="p-8" translateY="1000" opacity="0">
+                    <GridLayout rows="45" columns="50, *, 50, auto" width="100%">
+                        <Button row="0" col="0" text="&#xf3d2;" width="50" class="small-white-btn ionicon" tap="{{ prevStop }}" />
+                        <Label row="0" col="1" tap="{{ onLocationTap }}" text="{{ selected_stop.name }}" class="stop_name" horizontalAlignment="center" verticalAlignment="middle" textWrap="true" visibility="{{ selected_stop.name ? 'visible' : 'collapsed' }}" />
+                        <Button row="0" col="2" text="&#xf3d3;" width="50" class="small-white-btn ionicon" tap="{{ nextStop }}" />
+                        <Button row="0" col="3" text="CLOSE" horizontalAlignment="right" verticalAlignment="top" class="h4" tap="{{ closeStopDetailForm }}" />
+                    </GridLayout>
+                    <ScrollView>
+                        <StackLayout>
+                            <GridLayout rows="auto" columns="*">
+                                <Label row="0" col="0" tap="{{ onLocationTap }}" text="{{ selected_stop.location + ' - ' + selected_stop.city + ', ' + selected_stop.state + ' ' + selected_stop.postalcode }}" class="stop_city_state" textWrap="true" />
+                            </GridLayout>
+                            <GridLayout id="selected_stop_pricing_grid" rows="auto, auto, auto, auto, auto" columns="*, *, *">
+                                <Label text="Yesterday" class="h3 description" verticalAlignment="bottom" row="0" col="0" />
+                                <Label text="Today" class="h2 description font-bold" verticalAlignment="top" row="0" col="1" />
+                                <Label text="Tomorrow" class="h3 description" verticalAlignment="bottom" row="0" col="2" />
+                                <Label text="{{ selected_stop.pricing.yesterday ? '$' + selected_stop.pricing.yesterday : 'N/A' }}" class="h3 description" verticalAlignment="bottom" row="1" col="0" />
+                                <Label text="{{ selected_stop.pricing.today ? '$' + selected_stop.pricing.today : 'N/A' }}" class="h2 font-bold text-green" verticalAlignment="top" row="1" col="1" />
+                                <Label text="{{ selected_stop.pricing.tomorrow ? '$' + selected_stop.pricing.tomorrow : 'N/A' }}" class="h3 description" verticalAlignment="bottom" row="1" col="2" />
+                                <Label row="2" col="0" colSpan="3" text="" class="hr-light" textWrap="true" />
+                                <Label row="3" col="0" colSpan="3" text="Net of State Tax" class="h3 font-bold" color="black" textWrap="true" />
+                                <Label text="{{ selected_stop.statetax.yesterday ? selected_stop.statetax.yesterday : 'N/A' }}" class="h3 description" row="4" col="0" textWrap="true" />
+                                <Label text="{{ selected_stop.statetax.today ? selected_stop.statetax.today : 'N/A' }}" class="h3 description" row="4" col="1" textWrap="true" />
+                                <Label text="{{ selected_stop.statetax.tomorrow ? selected_stop.statetax.tomorrow : 'N/A' }}" class="h3 description" row="4" col="2" textWrap="true" />
+                            </GridLayout>
+                            <GridLayout height="100%" rows="auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto" columns="auto, *">
+                                <!-- <Label text="{{ selected_stop.name }}" row="1" col="0" colSpan="3" class="h2 text-blue" textWrap="true" visibility="{{ selected_stop.name ? 'visible' : 'collapsed' }}" /> -->
+                                <!-- <Label text="Location" row="1" col="0" colSpan="3" class="section-label" textWrap="true" /> -->
+                                <!-- Address -->
+                                <Label text="Address" row="2" col="0" class="stop-label" textWrap="true" />
+                                <Label row="2" col="1" tap="{{ onLocationTap }}" text="{{ selected_stop.address ? selected_stop.address : 'N/A' }}" class="stop-detail" textWrap="true" />
+                                <!-- Location -->
+                                <!-- <Label text="" row="4" col="0" class="h3" textWrap="true" visibility="{{ selected_stop.location ? 'visible' : 'collapsed' }}" /><Label text="{{ selected_stop.location }}" row="4" col="1" colSpan="2" class="stop-detail" textWrap="true" visibility="{{ selected_stop.location ? 'visible' : 'collapsed' }}" /> -->
+                                <!-- Phone -->
+                                <Label text="Phone" row="3" col="0" class="stop-label" />
+                                <Label row="3" col="1" text="{{ selected_stop.phone ? selected_stop.phone : 'N/A' }}" tap="{{ onStopPhoneTap }}" class="stop-detail" textWrap="true" />
+                                <!-- Scales -->
+                                <Label text="Scales" row="4" col="0" class="stop-label" textWrap="true" />
+                                <Label row="4" col="1" text="{{ selected_stop.scales ? 'Yes' : selected_stop.scales === false ? 'No' : 'N/A' }}" class="stop-detail" textWrap="true" />
+                                <!-- Showers -->
+                                <Label text="Showers" row="5" col="0" class="stop-label" textWrap="true" />
+                                <Label row="5" col="1" text="{{ selected_stop.showers ? selected_stop.showers : 'N/A' }}" class="stop-detail" textWrap="true" />
+                                <!-- Parking Space -->
+                                <Label text="Parking Space" row="6" col="0" class="stop-label" textWrap="true" />
+                                <Label row="6" col="1" text="{{ selected_stop.parking_space ? selected_stop.parking_space : 'N/A' }}" class="stop-detail" textWrap="true" />
+                                <!-- DEF -->
+                                <Label text="DEF" row="7" col="0" class="stop-label" textWrap="true" />
+                                <Label row="7" col="1" text="{{ selected_stop.def ? 'Yes' : selected_stop.def === false ? 'No' : 'N/A' }}" class="stop-detail" textWrap="true" />
+                                <!-- WiFi -->
+                                <Label text="WiFi" row="8" col="0" class="stop-label" textWrap="true" />
+                                <Label row="8" col="1" text="{{ selected_stop.wifi ? 'Yes' : selected_stop.wifi === false ? 'No' : 'N/A' }}" class="stop-detail" textWrap="true" />
+                                <!-- ATM -->
+                                <Label text="ATM" row="9" col="0" class="stop-label" textWrap="true" />
+                                <Label row="9" col="1" text="{{ selected_stop.atm ? selected_stop.atm : 'N/A' }}" class="stop-detail" textWrap="true" />
+                                <!-- Laundry -->
+                                <Label text="Laundry" row="10" col="0" class="stop-label" textWrap="true" />
+                                <Label row="10" col="1" text="{{ selected_stop.laundry ? 'Yes' : selected_stop.laundry === false ? 'No' : 'N/A' }}" class="stop-detail" textWrap="true" />
+                                <!-- Gym -->
+                                <Label text="Gym" row="11" col="0" class="stop-label" textWrap="true" />
+                                <Label row="11" col="1" text="{{ selected_stop.gym ? 'Yes' : selected_stop.gym === false ? 'No' : 'N/A' }}" class="stop-detail" textWrap="true" />
+                                <!-- Tire Care -->
+                                <Label text="ATM" row="12" col="0" class="stop-label" textWrap="true" />
+                                <Label row="12" col="1" text="{{ selected_stop.tire_care ? 'Yes' : selected_stop.tire_care === false ? 'No' : 'N/A' }}" class="stop-detail" textWrap="true" />
+                                <!-- Overnight Parking -->
+                                <Label text="Overnight Parking" row="13" col="0" class="stop-label" textWrap="true" />
+                                <Label row="13" col="1" text="{{ selected_stop.overnight_parking ? 'Yes' : selected_stop.overnight_parking === false ? 'No' : 'N/A' }}" class="stop-detail" textWrap="true" />
+                                <!-- Pet Friendly -->
+                                <Label text="Pet Friendly" row="14" col="0" class="stop-label" textWrap="true" />
+                                <Label row="14" col="1" text="{{ selected_stop.pet_friendly ? 'Yes' : selected_stop.pet_friendly === false ? 'No' : 'N/A' }}" class="stop-detail" textWrap="true" />
+                                <!-- RV Dump Station -->
+                                <Label text="RV Dump Station" row="15" col="0" class="stop-label" textWrap="true" />
+                                <Label row="15" col="1" text="{{ selected_stop.rv_dump_station ? 'Yes' : selected_stop.rv_dump_station === false ? 'No' : 'N/A' }}" class="stop-detail" textWrap="true" />
+                                <!-- Maintenance-->
+                                <Label text="Maintenance" row="16" col="0" class="stop-label" textWrap="true" />
+                                <Label row="16" col="1" text="{{ selected_stop.maintenance ? 'Yes' : selected_stop.maintenance === false ? 'No' : 'N/A' }}" class="stop-detail" textWrap="true" />
+                                <!-- Restaurants -->
+                                <Label text="Restaurants" row="17" col="0" class="stop-label" textWrap="true" />
+                                <Label row="17" col="1" text="{{ selected_stop.restaurants ? 'Yes' : selected_stop.restaurants === false ? 'No' : 'N/A' }}" class="stop-detail" textWrap="true" />
+                            </GridLayout>
+                        </StackLayout>
+                    </ScrollView>
+                </StackLayout>
+            </GridLayout>
+        </ContentView>
+        <ContentView visibility="{{ currentQpnMarkers.length >= 1 && !viewMode ? 'visible' : 'collapsed' }}">
+            <Label text="{{ noQpnMarkerText }}" row="0" col="0" colSpan="5" class="p-10 text-center text-accent" textWrap="true" visibility="{{ !viewMode && currentQpnMarkers.length < 0 ? 'visible' : 'collapsed' }}">
+            </Label>
+            <ListView row="0" col="0" rowSpan="7" colSpan="5" items="{{ currentQpnMarkers }}" separatorColor="#fff" class="list-group" id="currentMarkersListView">
+                <ListView.itemTemplate>
+                    <GridLayout class="list-item" rows="auto, auto, auto, auto, auto, auto, auto" columns="*, auto, auto, auto, auto">
+                        <Label class="stop-name" row="0" col="0" colSpan="5" text="{{ name }}" class="font-18 p-b-2" textWrap="true" />
+                        <Label class="stop-location" row="1" col="0" colSpan="5" text="{{ location + ', ' + city + ', ' + state }}" textWrap="true" />
+                        <Label class="stop-details" row="2" col="0" colSpan="3" text="{{'Cents off: ' + centsoff }}" textWrap="true" />
+                        <Label class="stop-details" row="2" col="3" colSpan="2" text="{{ 'Max Price: ' + maxprice }}" textWrap="true" />
+                        <Label class="stop-details" row="3" col="0" colSpan="4" text="{{ 'Net of State Tax: ' + netofstatetax }}" textWrap="true" />
+                        <Label class="stop-details" row="3" col="3" colSpan="2" text="{{ 'Phone: ' + phone }}" visibility="{{ phone ? 'visible' : 'collapsed' }}" textWrap="true" />
+                        <!-- <Label class="stop-details" row="4" col="0" colSpan="2" text="{{ Sells DEF }}" visibility="{{ def ? 'visible' : 'collapsed' }}" textWrap="true" /> -->
+                        <Image row="4" col="0" colSpan="2" src="https://api.nastek.com/resources/nastc-mobile/images/def_logo.png" stretch="aspectFit" visibility="{{ def ? 'visible' : 'collapsed' }}" />
+                        <Label class="stop-details" row="5" col="0" colSpan="2" text="{{ 'Parking Spaces: ' + parking_spaces }}" visibility="{{ parking_spaces ? 'visible' : 'collapsed' }}" textWrap="true" />
+                        <Label class="stop-details" row="5" col="3" colSpan="2" text="{{ 'Showers: ' + showers }}" visibility="{{ showers ? 'visible' : 'collapsed' }}" textWrap="true" />
+                        <GridLayout row="6" col="0" colSpan="5" rows="*" columns="*, *, *, *" padding="2">
+                            <Button row="0" col="0" android:text="&#xE0CD;" android:class="material-icon btn-transparent font-22 text-blue-grey" ios:text="&#xf4b9;" ios:class="ionicon stop-icon" tap="{{ $parents['ListView'].callQpnLocation }}" visibility="{{ phone ? 'visible' : 'collapsed' }}" />
+                            <Button row="0" col="1" android:text="&#xE55D;" android:class="material-icon btn-transparent font-22 text-blue-grey" ios:text="&#xf46e;" ios:class="ionicon stop-icon" tap="{{ $parents['ListView'].navigateToQpnStop }}" />
+                            <Button row="0" col="2" text="&#xf4b3;" class="{{ isFavorite === true ? 'favorite-stop ionicon btn-transparent font-24 text-blue-grey' : 'not-favorite-stop ionicon btn-transparent font-24 text-blue-grey' }}" tap="{{ $parents['ListView'].favoriteStopToggle }}" />
+                            <Button row="0" col="3" android:text="&#xE80D;" android:class="material-icon btn-transparent font-22 text-blue-grey" ios:text="&#xf220;" ios:class="ionicon stop-icon" tap="{{ $parents['ListView'].shareFuelStop }}" />
+                        </GridLayout>
+                    </GridLayout>
+                </ListView.itemTemplate>
+            </ListView>
+        </ContentView>
+    </StackLayout>
+</Page>

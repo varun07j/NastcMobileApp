@@ -1,0 +1,10 @@
+.listview {
+    padding: 4;
+    background-color: #0E151D;
+    height: 100%;
+}
+
+.list-item {
+    background-color: #0E151D;
+    padding: 8;
+}

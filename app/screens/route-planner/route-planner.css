@@ -1,0 +1,126 @@
+.small-white-btn {
+  font-size: 22;
+  height: 45;
+  width: 45;
+  background-color: #fff;
+  color: #111;
+  border-radius: 2;
+  margin: 5;
+}
+
+.small-blue-btn {
+  font-size: 22;
+  height: 45;
+  width: 45;
+  background-color: #336699;
+  color: #fff;
+  border-radius: 2;
+  margin: 5;
+}
+
+.stop_name {
+  font-size: 16;
+  font-weight: bold;
+  color: #1976d2;
+  text-align: left;
+  vertical-align: middle;
+  padding: 4 4 2 4;
+}
+.stop_city_state {
+  font-size: 15;
+  color: #333;
+  padding: 2 4 4 4;
+}
+
+#selected_stop_pricing_grid {
+  width: 100%;
+  text-align: center;
+  border-top-width: 1;
+  border-top-color: #b4b4b4;
+  border-bottom-width: 1;
+  border-bottom-color: #b4b4b4;
+  margin: 0 0 4 0;
+  padding: 8;
+}
+
+#selected_stop_pricing_grid .description {
+  color: #333;
+}
+
+#stopDetailLayout {
+  background-color: #fff;
+  border-top-width: 1;
+  border-top-color: #bdbdbd;
+}
+
+#stopDetailLayout .section-label {
+  color: #8899a6;
+  width: 100%;
+  font-size: 13;
+  border-bottom-width: 1;
+  border-bottom-color: #ddd;
+  padding: 5;
+  margin: 4;
+}
+
+#stopDetailLayout .stop-label {
+  font-size: 16;
+  /* width: 100%; */
+  color: #222;
+  padding: 12 2 12 5;
+  /* border-bottom-width: 1;
+  border-bottom-color: #d3d3d3; */
+  horizontal-align: left;
+}
+
+#stopDetailLayout .stop-detail {
+  font-size: 16;
+  /* width: 100%; */
+  font-weight: bold;
+  color: #222;
+  padding: 12 5 12 2;
+  /* border-bottom-width: 1;
+  border-bottom-color: #d3d3d3; */
+  horizontal-align: right;
+  text-align: right;
+}
+
+#stopDetailLayout scrollview {
+  height: 100%;
+  width: 100%;
+}
+
+#stopDetailLayout button {
+  color: #333;
+}
+#stopDetailLayout label {
+}
+
+#currentMarkersListView {
+  height: 100%;
+  background-color: #0e151d;
+}
+
+#currentMarkersListView > .list-item {
+  background-color: #0e151d;
+  padding: 10 10 10 10;
+}
+
+
+.stop-name {
+  font-size: 18;
+  color: #fff;
+  padding: 4;
+}
+
+.stop-location {
+  font-size: 15;
+  color: #90a4ae;
+  padding: 4 0 4 0;
+}
+
+.stop-details {
+  font-size: 15;
+  margin: 4 0 4 0;
+  color: #f1f1f1;
+}

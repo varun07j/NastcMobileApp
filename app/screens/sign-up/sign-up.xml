@@ -1,0 +1,13 @@
+<Page 
+    xmlns="http://schemas.nativescript.org/tns.xsd" loaded="loaded">
+    <ActionBar title="Sign Up">
+        <NavigationButton text="Back" icon="res://ic_arrow_back" tap="goBack" />
+    </ActionBar>
+    <ScrollView>
+        <StackLayout class="p-20">
+            <Label text="NASTC offers many programs. To learn more call or email us." class="text-center m-b-20" textWrap="true" />
+            <Button text="Call NASTC" tap="callNastc" class="accent-btn" />
+            <Button text="Email NASTC" tap="emailNastc" class="accent-btn" />
+        </StackLayout>
+    </ScrollView>
+</Page>

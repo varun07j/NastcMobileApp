@@ -1,0 +1,44 @@
+#stateDropDown {
+  color: #fff;
+  background-color: #0e151d;
+}
+
+.stop-icon {
+  background-color: transparent;
+  border-color: transparent;
+  border-width: 1 1 1 1;
+  color: #90a4ae;
+  /* horizontal-align: center; */
+  font-size: 25;
+  width: 25;
+  height: 30;
+  margin: 11;
+}
+
+#fuelstopListView {
+  background-color: #0e151d;
+  height: 100%;
+}
+
+.list-item {
+  background-color: #0e151d;
+  padding: 10 10 10 10;
+}
+
+.stop-name {
+  font-size: 18;
+  color: #fff;
+  padding: 4;
+}
+
+.stop-location {
+  font-size: 15;
+  color: #90a4ae;
+  padding: 4 0 4 0;
+}
+
+.stop-details {
+  font-size: 15;
+  margin: 4 0 4 0;
+  color: #f1f1f1;
+}

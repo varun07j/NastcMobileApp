@@ -1,0 +1,17 @@
+<Page 
+    xmlns="http://schemas.nativescript.org/tns.xsd" 
+    xmlns:Card="nativescript-cardview" loaded="pageLoaded">
+    <ActionBar title="Help Center">
+        <NavigationButton text="Back" icon="res://ic_arrow_back" tap="{{ goBack }}" />
+    </ActionBar>
+    <StackLayout backgroundColor="#1B2936">
+        <ListView class="listview" items="{{ helpCenterItems }}" itemLoading="{{ onItemLoading }}" itemTap="{{ getItemEvent }}" separatorColor="#0E151D">
+            <ListView.itemTemplate>
+                <GridLayout class="list-item" rows="50" columns="60, auto">
+                    <Label row="0" col="0" fontSize="24" margin="10" verticalAlignment="center" android:text="{{ androidIcon }}" android:class="{{ androidClass }}" ios:text="{{ iosIcon }}" ios:class="{{ iosClass }}" textWrap="true" />
+                    <Label row="0" col="1" verticalAlignment="center" text="{{ title }}" textWrap="true" />
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
+    </StackLayout>
+</Page>

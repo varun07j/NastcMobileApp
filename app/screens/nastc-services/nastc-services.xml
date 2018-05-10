@@ -1,0 +1,21 @@
+<Page 
+    xmlns="http://schemas.nativescript.org/tns.xsd" loaded="onLoaded">
+    <ActionBar title="NASTC Services">
+        <NavigationButton text="Back" icon="res://ic_arrow_back" tap="{{ goBack }}" />
+    </ActionBar>
+    <StackLayout>
+        <ListView id="services_list_view" items="{{ nastcServicesItems }}" itemLoading="{{ onItemLoading }}">
+            <ListView.itemTemplate>
+                <GridLayout rows="auto, auto, auto, auto" columns="auto, *" class="list-item">
+                    <Label row="0" colSpan="2" class="h3 text-white" text="{{ title }}" textWrap="true" />
+                    <Label row="1" col="0" text="Website: " class="service-label" visibility="{{ website ? 'visible' : 'collapsed' }}" textWrap="true" />
+                    <Label row="1" col="1" text="{{ website }}" class="service-data" tap="{{ $parents['ListView'].onWebsiteTap }}" visibility="{{ website ? 'visible' : 'collapsed' }}" textWrap="true" />
+                    <Label row="2" col="0" text="Email: " class="service-label" textWrap="true" />
+                    <Label row="2" col="1" text="{{ email ? email : 'N/A' }}" class="service-data" tap="{{ $parents['ListView'].onEmailTap }}" textWrap="true" />
+                    <Label row="3" col="0" text="Phone: " class="service-label" textWrap="true" />
+                    <Label row="3" col="1" text="{{ phone ? phone : 'N/A' }}" class="service-data" tap="{{ $parents['ListView'].onCallTap }}" textWrap="true" />
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
+    </StackLayout>
+</Page>

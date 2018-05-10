@@ -1,0 +1,67 @@
+<Page 
+    xmlns="http://schemas.nativescript.org/tns.xsd" 
+    xmlns:FAB="nativescript-floatingactionbutton" 
+    xmlns:dd="nativescript-drop-down" loaded="loaded" unloaded="{{ onPageUnloaded }}" navigatedFrom="{{ onNavigatingFrom }}">
+    <ActionBar title="QPN" id="actionBar">
+        <NavigationButton text="Back" icon="res://ic_arrow_back" tap="{{ goBack }}" />
+        <ActionBar.actionItems>
+            <ActionItem icon="res://ic_search_white" tap="{{ onSearchActionItemTap }}" visibility="{{ isSearchBarVisible ? 'collapse' : 'visible' }}" ios.position="right" />
+            <!-- <SearchBar id="searchBar" visibility="{{ isSearchBarVisible ? 'visible' : 'collapsed' }}" color="#fff" hint="Search Fuel Stops" text="{{ searchText }}" clear="{{ onClearSearchText }}" submit="{{ onSubmitSearchText }}" /> -->
+            <ActionItem visibility="{{ isSearchBarVisible ? 'visible' : 'collapsed' }}">
+                <ActionItem.actionView>
+                    <GridLayout height="100%" ios:width="92%" verticalAlignment="middle" columns="auto, *, 40" rows="*" visibility="{{ isSearchBarVisible ? 'visible' : 'collapsed' }}">
+                        <Label text="&#xE8B6;" col="0" row="0" width="40" class="material-icon text-white font-24" visibility="{{ isSearchBarVisible ? 'collapse' : 'visible' }}" verticalAlignment="middle" textWrap="true" />
+                        <TextField id="qpnSearchTextField" text="{{ searchText }}" textFieldHintColor="white" hint="Filter City, Interstate, etc" row="0" col="1" textAlignment="left" />
+                        <Button text="&#xE14C;" row="0" col="2" tap="{{ onClearSearchText }}" verticalAlignment="middle" class="btn-transparent material-icon text-white font-24" textWrap="true" />
+                    </GridLayout>
+                </ActionItem.actionView>
+            </ActionItem>
+        </ActionBar.actionItems>
+    </ActionBar>
+    <GridLayout rows="auto, auto, auto, *">
+        <!-- Day selector Segmented Bar -->
+        <SegmentedBar row="0" ios:margin="3" id="dateSegBar" selectedBackgroundColor="#D92562" selectedIndex="{{ dateSelectedIndex }}">
+            <SegmentedBar.items>
+                <SegmentedBarItem title="Yesterday" />
+                <SegmentedBarItem title="Today" />
+                <SegmentedBarItem title="Tomorrow" />
+            </SegmentedBar.items>
+        </SegmentedBar>
+        <!-- State Dropdown -->
+        <GridLayout row="1" class="p-10" rows="auto, auto" columns="40, *, 40">
+            <Button text="&#xf1ff;" row="0" col="0" class="btn-transparent ionicon center font-24" tap="{{ openLocationDropDown }}" />
+            <dd:DropDown row="0" col="1" id="stateDropDown" color="#fff" hint="Location..." items="{{ stateList }}" selectedIndex="{{ selectedStateIndex }}" class="font-18 p-5" />
+            <Button row="0" col="2" ios:text="&#xf3d0;" android:text="&#xf35f;" class="btn-transparent ionicon center font-24" tap="{{ openLocationDropDown }}" />
+        </GridLayout>
+        <!-- Fuel Stop List -->
+        <StackLayout row="2" class="hr-light btn-accent"></StackLayout>
+        <StackLayout row="3" id="fuelstopContainer">
+            <!-- Info Message -->
+            <Label text="{{ infoMessage }}" visibility="{{ infoMessage ? 'visible' : 'collapsed' }}" class="text-center p-8" textWrap="true" />
+            <ListView id="fuelstopListView" items="{{ fuelstops }}" itemLoading="{{ onItemLoading }}" separatorColor="#1B2936" visibility="{{ fuelstops.length >= 1 ? 'visible' : 'collapsed' }}">
+                <ListView.itemTemplate>
+                    <GridLayout class="list-item" rows="auto, auto, auto, auto, auto, auto, auto" columns="*, auto, auto, auto, auto">
+                        <Label class="stop-name" row="0" col="0" colSpan="5" text="{{ name }}" class="font-18 p-b-2" textWrap="true" />
+                        <Label class="stop-location" row="1" col="0" colSpan="5" text="{{ location + ', ' + city + ', ' + state }}" textWrap="true" />
+                        <Label class="stop-details" row="2" col="0" colSpan="3" text="{{'Cents off: ' + centsoff }}" textWrap="true" />
+                        <Label class="stop-details" row="2" col="3" colSpan="2" text="{{ 'Max Price: ' + maxprice }}" textWrap="true" />
+                        <Label class="stop-details" row="3" col="0" colSpan="4" text="{{ 'Net of State Tax: ' + netofstatetax }}" textWrap="true" />
+                        <Label class="stop-details" row="3" col="3" colSpan="2" text="{{ 'Phone: ' + phone }}" visibility="{{ phone ? 'visible' : 'collapsed' }}" textWrap="true" />
+                        <!-- <Label class="stop-details" row="4" col="0" colSpan="2" text="{{ Sells DEF }}" visibility="{{ def ? 'visible' : 'collapsed' }}" textWrap="true" /> -->
+                        <Image row="4" col="0" colSpan="2" src="https://api.nastek.com/resources/nastc-mobile/images/def_logo.png" stretch="aspectFit" visibility="{{ def ? 'visible' : 'collapsed' }}" />
+                        <Label class="stop-details" row="5" col="0" colSpan="2" text="{{ 'Parking Spaces: ' + parking_spaces }}" visibility="{{ parking_spaces ? 'visible' : 'collapsed' }}" textWrap="true" />
+                        <Label class="stop-details" row="5" col="3" colSpan="2" text="{{ 'Showers: ' + showers }}" visibility="{{ showers ? 'visible' : 'collapsed' }}" textWrap="true" />
+                        <GridLayout row="6" col="0" colSpan="5" rows="*" columns="*, *, *, *" padding="2">
+                            <Button row="0" col="0" android:text="&#xE0CD;" android:class="material-icon btn-transparent font-22 text-blue-grey" ios:text="&#xf4b9;" ios:class="ionicon stop-icon" tap="{{ $parents['ListView'].callQpnLocation }}" visibility="{{ phone ? 'visible' : 'collapsed' }}" />
+                            <Button row="0" col="1" android:text="&#xE55D;" android:class="material-icon btn-transparent font-22 text-blue-grey" ios:text="&#xf46e;" ios:class="ionicon stop-icon" tap="{{ $parents['ListView'].navigateToQpnStop }}" />
+                            <Button row="0" col="2" text="&#xf4b3;" class="{{ isFavorite === true ? 'favorite-stop ionicon btn-transparent font-24 text-blue-grey' : 'not-favorite-stop ionicon btn-transparent font-24 text-blue-grey' }}" tap="{{ $parents['ListView'].favoriteStopToggle }}" />
+                            <Button row="0" col="3" android:text="&#xE80D;" android:class="material-icon btn-transparent font-22 text-blue-grey" ios:text="&#xf220;" ios:class="ionicon stop-icon" tap="{{ $parents['ListView'].shareFuelStop }}" />
+                        </GridLayout>
+                    </GridLayout>
+                </ListView.itemTemplate>
+            </ListView>
+        </StackLayout>
+        <!-- FAB -->
+        <FAB:fab id="mapFab" tap="{{ fabTap }}" row="3" icon="res://ic_my_location_white" rippleColor="#f1f1f1" hideOnSwipeOfView="fuelstopListView" class="fab-button" />
+    </GridLayout>
+</Page>

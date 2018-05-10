@@ -1,0 +1,28 @@
+Page {
+  background-color: #0e151d;
+}
+
+.profile-image {
+  height: 70;
+  width: 70;
+  border-radius: 35;
+}
+
+.employee-name {
+  font-size: 16;
+  font-weight: bold;
+}
+
+.employee-title {
+  font-size: 12;
+}
+
+.listview {
+  background-color: transparent;
+  height: 100%;
+}
+
+.item-layout {
+  padding: 8;
+  background-color: #0e151d;
+}

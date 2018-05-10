@@ -1,0 +1,43 @@
+<Page 
+  xmlns="http://www.nativescript.org/tns.xsd" loaded="onLoaded">
+  <ActionBar title="NASTC" />
+  <ScrollView>
+    <StackLayout class="p-10">
+      <Label text="{{ user.FirstName + ' ' + user.LastName }}" class="text-accent text-center text-capitalize font-weight-bold h2 m-b-5" autocorrect="false" autocapitalizationType="none" textWrap="true" />
+      <Label text="{{ user.Email }}" class="text-grey text-center text-uppercase h3" textWrap="true" />
+      <GridLayout rows="auto, auto, auto" columns="*, *" class="m-t-20 m-b-20">
+        <StackLayout row="0" col="0" class="nav-stack btn-accent" tap="{{ goToQpnMain }}">
+          <Label text="&#xE546;" class="material-icon icon" textWrap="true" />
+          <Label text="QPN" textWrap="true" />
+        </StackLayout>
+        <StackLayout row="0" col="1" class="nav-stack btn-accent" tap="{{ goToRoutePlanner }}">
+          <Label text="&#xf393;" class="ionicon icon" textWrap="true" />
+          <Label text="QPN Map & Route Planner" textWrap="true" />
+        </StackLayout>
+        <StackLayout row="1" col="0" class="nav-stack btn-accent" tap="{{ goToCompanyDirectory }}">
+          <Label android:text="&#xf39e;" ios:text="&#xf47c;" class="ionicon icon" textWrap="true" />
+          <Label text="Directory" textWrap="true" />
+        </StackLayout>
+        <StackLayout row="1" col="1" class="nav-stack btn-accent" tap="{{ goToNastcServices }}">
+          <Label text="&#xE896;" class="material-icon icon" textWrap="true" />
+          <Label text="NASTC Services" textWrap="true" />
+        </StackLayout>
+        <StackLayout row="2" col="0" class="nav-stack btn-accent" tap="{{ goToHelpCenter }}">
+          <Label text="&#xf444;" class="ionicon icon" textWrap="true" />
+          <Label text="Help Center" textWrap="true" />
+        </StackLayout>
+      </GridLayout>
+      <StackLayout class="m-10 text-center">
+        <Label text="If you have any features you'd like to see in our app, let us know. We would love to hear from you." textWrap="true" class="text-center" />
+        <StackLayout class="hr-light m-5"></StackLayout>
+        <GridLayout class="p-15" rows="auto" columns="*, auto, *">
+          <Button row="0" col="0" width="90%" text="Call NASTC" class="light-blue-btn" tap="{{ callNastc }}" />
+          <Label row="0" col="1" text=" " textWrap="true" />
+          <Button row="0" col="2" width="90%" text="Send Message" class="light-blue-btn" tap="{{ onMessageTap }}" />
+        </GridLayout>
+        <Label text="Visit our website for more information." class="font-12" textWrap="true" />
+        <Label text="www.NASTC.com" textWrap="true" class="text-light-blue" tap="{{ openNastcWebSite }}" />
+      </StackLayout>
+    </StackLayout>
+  </ScrollView>
+</Page>

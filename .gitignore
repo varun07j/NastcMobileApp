@@ -1,0 +1,15 @@
+platforms
+node_modules
+.hooks
+.idea
+.vscode
+*.js
+!async-await.js
+*.js.map
+*.log
+.DS_Store
+.idea/
+/lib
+/hooks
+/.tmp_backup
+*.apk

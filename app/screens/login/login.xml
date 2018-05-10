@@ -1,0 +1,42 @@
+<Page 
+    xmlns="http://schemas.nativescript.org/tns.xsd" 
+    xmlns:TIL="nativescript-textinputlayout" 
+    xmlns:mdt="components/md-textinput" loaded="loaded" unloaded="{{ onPageUnloaded }}">
+    <ActionBar title="Membership Portal Sign In" />
+    <StackLayout>
+        <ScrollView width="100%">
+            <StackLayout>
+                <Image src="res://nastctransparentlogo" height="{{ headerImageHeight }}" stretch="aspectFit" />
+                <GridLayout rows="auto, auto, auto, auto, auto" columns="auto, *, auto" class="p-10" height="{{ remainingHeight }}">
+                    <!-- Email -->
+                    <android>
+                        <TIL:TextInputLayout row="0" colSpan="3" hintTextAppearance="MdTextInputLayout" hint="Email" error="{{ emailError }}" errorEnabled="true" hintAnimationEnabled="true">
+                            <TextField id="emailField" text="{{ email }}" editable="true" keyboardType="email" returnKeyType="next" autocorrect="false" autocapitalizationType="none" />
+                        </TIL:TextInputLayout>
+                    </android>
+                    <ios>
+                        <StackLayout row="0" colSpan="3">
+                            <TextField id="emailField" text="{{ email }}" class="ios-TextField m-12" hint="Email..." editable="true" keyboardType="email" returnKeyType="next" autocorrect="false" autocapitalizationType="none" />
+                            <Label text="{{ emailError }}" class="text-warning" textWrap="true" />
+                        </StackLayout>
+                    </ios>
+                    <!-- Password -->
+                    <android>
+                        <TIL:TextInputLayout row="1" colSpan="3" hintTextAppearance="MdTextInputLayout" hint="Password" error="{{ passwordError }}" errorEnabled="true" hintAnimationEnabled="true">
+                            <TextField id="passwordField" text="{{ password }}" editable="true" secure="true" returnKeyType="send" autocorrect="false" autocapitalizationType="none" />
+                        </TIL:TextInputLayout>
+                    </android>
+                    <ios>
+                        <StackLayout row="1" colSpan="3">
+                            <TextField id="passwordField" text="{{ password }}" class="ios-TextField m-12" hint="Password..." editable="true" secure="true" returnKeyType="send" autocorrect="false" autocapitalizationType="none" />
+                            <Label text="{{ passwordError }}" class="text-warning" textWrap="true" />
+                        </StackLayout>
+                    </ios>
+                    <Button row="2" colSpan="3" text="Sign In" tap="{{ login }}" class="accent-btn" />
+                    <Button row="4" col="0" text="Forgot Password?" tap="navToForgotPassword" class="m-t-10 btn-transparent text-light-blue pull-left" />
+                    <Button row="4" col="2" text="Sign Up" tap="navToSignUp" class="m-t-10 btn-transparent text-light-blue pull-right" />
+                </GridLayout>
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
+</Page>

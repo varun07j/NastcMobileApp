@@ -1,0 +1,389 @@
+@import "~/css/core.light.css";
+
+/******** COMPONENTS **********/
+
+page {
+  background-color: #0e151d;
+  color: #fff;
+}
+
+actionbar {
+  background-color: #243447;
+  color: #f1f1f1;
+  /*background-color: #0E151D;
+    color: #fff;*/
+}
+
+textfield {
+  placeholder-color: #c0c9d6;
+  color: #f1f1f1;
+}
+
+.font-28 {
+  font-size: 28;
+}
+
+.font-24 {
+  font-size: 24;
+}
+
+.font-22 {
+  font-size: 22;
+}
+
+.font-20 {
+  font-size: 20;
+}
+
+.font-18 {
+  font-size: 18;
+}
+
+.font-16 {
+  font-size: 16;
+}
+
+.font-14 {
+  font-size: 14;
+}
+
+.font-12 {
+  font-size: 12;
+}
+
+.font-10 {
+  font-size: 10;
+}
+
+.text-center {
+  horizontal-align: center;
+  vertical-align: center;
+  text-align: center;
+}
+
+.center {
+  horizontal-align: center;
+  vertical-align: center;
+}
+
+/******** COLORS *******/
+
+.primary-color {
+  color: #3c549c;
+}
+
+.primary-dark-color {
+  color: #303f9f;
+}
+
+.accent-color {
+  color: #b2005e;
+}
+
+.text-accent {
+  color: #b2005e;
+}
+
+.text-warning {
+  color: #bf4858;
+}
+
+.text-red {
+  color: #f44336;
+}
+
+.text-green {
+  color: #4caf50;
+}
+
+.text-blue {
+  color: #1976d2;
+}
+
+.text-light-blue {
+  color: #1da1f2;
+}
+
+.text-cyan {
+  color: #0097a7;
+}
+
+.text-teal {
+  color: #009688;
+}
+
+.text-indigo {
+  color: #3f51b5;
+}
+
+.text-deep-purple {
+  color: #673ab7;
+}
+
+.text-purple {
+  color: #9c27b0;
+}
+
+.text-pink {
+  color: #e91e63;
+}
+
+.text-white {
+  color: #fff;
+}
+
+.text-grey {
+  color: #8899a6;
+}
+
+.text-blue-grey {
+  color: #90a4ae;
+}
+
+/***********************/
+
+/***** TEXT FIELD ******/
+
+.ios-TextField {
+  border-width: 1;
+  border-color: #8899a6;
+  border-radius: 3;
+  padding: 10;
+  margin: 8 0 8 0;
+}
+
+/******* BUTTONS ******/
+
+/* Accent Btn */
+
+.accent-btn {
+  background-color: #b2005e;
+  color: #fff;
+  width: 100%;
+  horizontal-align: center;
+  min-height: 36;
+  min-width: 64;
+  padding: 10 10 10 10;
+  margin: 8 16 8 16;
+}
+
+/* light blue btn */
+
+.light-blue-btn {
+  background-color: #1da1f2;
+  color: #fff;
+  width: 100%;
+  horizontal-align: center;
+  min-height: 36;
+  min-width: 64;
+  padding: 10 10 10 10;
+  margin: 8 16 8 16;
+}
+
+/* link */
+
+.white-link {
+  background-color: transparent;
+  color: #fff;
+  border-color: #00ffffff;
+  border-width: 1 1 1 1;
+  margin: 6;
+}
+
+.link-btn-blue {
+  background-color: transparent;
+  color: #1d96e1;
+  border-width: 0.1;
+  margin: 8 16 8 16;
+}
+
+.btn-primary {
+  background-color: #3c549c;
+  border-color: #3c549c;
+  color: #fff;
+}
+
+.btn-accent {
+  background-color: #b2005e;
+  border-color: #b2005e;
+  color: #fff;
+}
+
+.btn-red {
+  background-color: #f44336;
+  border-color: #f44336;
+  color: #fff;
+}
+
+.btn-green {
+  background-color: #4caf50;
+  border-color: #4caf50;
+  color: #333;
+}
+
+.btn-light-blue {
+  background-color: #1da1f2;
+  border-color: #1da1f2;
+  color: #f1f1f1;
+  padding: 10 10 10 10;
+  margin: 8 16 8 16;
+}
+
+.btn-cyan {
+  background-color: #00bcd4;
+  border-color: #00bcd4;
+  color: #333;
+}
+
+.btn-teal {
+  background-color: #009688;
+  border-color: #009688;
+  color: #fff;
+}
+
+.btn-indigo {
+  background-color: #3f51b5;
+  background-color: #3f51b5;
+  color: #fff;
+}
+
+.btn-deep-purple {
+  background-color: #673ab7;
+  border-color: #673ab7;
+  color: #fff;
+}
+
+.btn-purple {
+  background-color: #9c27b0;
+  border-color: #9c27b0;
+  color: #fff;
+}
+
+.btn-pink {
+  background-color: #e91e63;
+  border-color: #e91e63;
+  color: #fff;
+}
+
+.btn-grey {
+  background-color: #8899a6;
+  border-color: #8899a6;
+  color: #555;
+}
+
+.btn-transparent {
+  background-color: transparent;
+  border-color: #00ffffff;
+  border-width: 1 1 1 1;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn-outline1 {
+  background-color: transparent;
+  border-radius: 4;
+  border-width: 1;
+  color: #f1f1f1;
+  /*color: #555;*/
+}
+
+.fab-button {
+  height: 60;
+  width: 60;
+  margin: 5 15 15 5;
+  background-color: #d92562;
+  horizontal-align: right;
+  vertical-align: bottom;
+}
+
+.fab-white {
+  height: 60;
+  width: 60;
+  margin: 5 15 15 5;
+  background-color: #f1f1f1;
+  horizontal-align: right;
+  vertical-align: bottom;
+}
+
+.fab-blue {
+  height: 60;
+  width: 60;
+  margin: 5 15 15 5;
+  background-color: #3489db;
+  horizontal-align: right;
+  vertical-align: bottom;
+}
+
+.small-fab-blue {
+  height: 40;
+  width: 40;
+  margin: 5;
+  background-color: #3489db;
+  horizontal-align: right;
+  vertical-align: top;
+}
+
+.fake-fab-white {
+  height: 60;
+  width: 60;
+  border-radius: 30;
+  background-color: #fff;
+  color: #333;
+  margin: 5 15 15 5;
+  font-size: 28;
+  horizontal-align: right;
+  vertical-align: bottom;
+}
+
+.fake-fab-blue {
+  height: 60;
+  width: 60;
+  border-radius: 30;
+  background-color: #3489db;
+  color: #fff;
+  margin: 5 15 15 5;
+  font-size: 28;
+  horizontal-align: right;
+  vertical-align: bottom;
+}
+
+.mini-fab {
+  height: 50;
+  width: 50;
+  margin: 18;
+  background-color: #f1f1f1;
+  color: #1da1f2;
+  horizontal-align: right;
+  vertical-align: bottom;
+}
+
+/*********************/
+
+/******** FONTS *******/
+
+.material-icon {
+  font-family: MaterialIcons-Regular, Material Icons, "Material Icons",
+    "MaterialIcons-Regular";
+}
+
+.fa {
+  font-family: FontAwesome, "FontAwesome", fontawesome-webfont,
+    "fontawesome-webfont";
+}
+
+.ionicon {
+  font-family: ionicons, "ionicons", Ionicons, "Ionicons";
+}
+
+/**********************/
+
+/**** QPN List ******/
+.favorite-stop {
+  color: #d92562;
+}
+
+.not-favorite-stop {
+  color: #90a4ae;
+}

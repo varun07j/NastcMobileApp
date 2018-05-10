@@ -1,0 +1,13 @@
+ 
+<StackLayout 
+    xmlns:TIL="nativescript-textinputlayout" loaded="onLoaded">
+    <android width="100%">
+        <TIL:TextInputLayout id="til" hintTextAppearance="MdTextInputLayout" error="" errorEnabled="true" hintAnimationEnabled="true">
+            <TextField id="input" text=""></TextField>
+        </TIL:TextInputLayout>
+    </android>
+    <ios width="100%">
+        <TextField id="input" text="" class="ios-TextField m-12" hint="hint" editable="editable" secure="secure" returnKeyType="returnKeyType" autocorrect="autocorrect" autocapitalizationType="autocapitalizationType" />
+        <Label id="iosError" text="" class="text-warning" textWrap="true" />
+    </ios>
+</StackLayout>
